@@ -6,3 +6,11 @@ body {
   line-height: 21px !important;
   letter-spacing: -0.103101px;
 }
+
+.full-height {
+  height: 100vh;
+}
+
+.white {
+  color: white !important;
+}
