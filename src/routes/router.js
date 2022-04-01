@@ -1,3 +1,6 @@
+// Guards
+import guards from "../guards/guards";
+
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "/src/components/main/Login/Login.vue";
 import NotFound from "/src/pages/general/NotFound.vue";
@@ -12,15 +15,16 @@ let notFoundPage = {
 let loginPage = {
   path: "/login",
   name: "Login",
+  beforeEnter: guards.auth,
   component: Login,
 }
 
 const routes = [
   {
     path: "/",
-    name: "home",
+    name: "Home",
+    beforeEnter: guards.guest,
     component: DashboardLayout,
-    redirect: "/home",
   },
   loginPage,
   notFoundPage,
