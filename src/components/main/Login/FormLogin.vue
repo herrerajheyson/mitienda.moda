@@ -16,7 +16,7 @@
           id="identification"
           :rules="rulePhone"
           @keypress="handleLogin"
-          @keydown="handleLogin"
+          @paste="onPaste"
           @change="handleLogin"
           @focus="handleLogin"
           name="mobilephone"
@@ -53,11 +53,17 @@ export default {
       }
     },
 
+    onPaste (evt) {
+      console.log(evt.clipboardData.getData('text'));
+      setTimeout(() => {
+        this.handleLogin()
+      }, 10);
+    },
+
     signin() {
       this.$store
         .dispatch("login", this.model)
         .then(() => {
-          console.log(this.$router);
           this.$router.push("/").catch((error) => {
             console.log(error);
           })
