@@ -26,6 +26,7 @@ const routes = [
     name: "Tissini",
     beforeEnter: guards.guest,
     component: DashboardLayout,
+    redirect: "/categorias",
     children: [
       Home
     ]

@@ -1,7 +1,7 @@
 import Home from "./Home.vue";
 
 const home_routes = {
-  path: "/home",
+  path: "/categorias",
   name: "Home",
   component: Home,
 };
