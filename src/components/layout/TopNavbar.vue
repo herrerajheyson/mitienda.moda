@@ -18,18 +18,12 @@
       </div>
     </div>
   </nav>
-  <LogoutDialog ref="logout"/>
 </template>
 <script>
-import LogoutDialog from "/src/components/main/Logout/LogoutDialog"
-
 export default {
-  components: {
-    [LogoutDialog.name]: LogoutDialog
-  },
   methods: {
     openModal() {
-      this.$refs.logout.logout = true
+      this.$emit("openModal")
     }
   }
 };

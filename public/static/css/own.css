@@ -14,3 +14,34 @@ body {
 .white {
   color: white !important;
 }
+.v-overlay--active {
+  pointer-events: auto;
+  -ms-touch-action: none;
+  touch-action: none;
+}
+
+.v-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  -webkit-transition: .3s cubic-bezier(.25,.8,.5,1);
+  transition: .3s cubic-bezier(.25,.8,.5,1);
+  z-index: 201;
+  background-color: 212121;
+  opacity: .46;
+}
+
+.v-overlay:before {
+  background-color: #212121;
+  content: "";
+  height: 100%;
+  position: absolute;
+  -webkit-transition: inherit;
+  transition: inherit;
+  -webkit-transition-delay: .15s;
+  transition-delay: .15s;
+  width: 100%;
+}

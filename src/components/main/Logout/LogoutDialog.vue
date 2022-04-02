@@ -11,12 +11,17 @@
             en la Tienda utiliza las opciones de la parte inferior:
           </p>
           <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-          Carrito 
+          Carrito
           <i class="fa fa-home" aria-hidden="true"></i>
-          Catalogo 
+          Catalogo
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn" data-bs-dismiss="modal">
+          <button
+            type="button"
+            class="btn"
+            data-bs-dismiss="modal"
+            @click="doLogout"
+          >
             SALIR DE LA TIENDA
           </button>
           <button type="button" class="btn" @click="closeModal">VOLVER</button>
@@ -24,6 +29,7 @@
       </div>
     </div>
   </div>
+  <div class="v-overlay v-overlay--active" v-if="logout"></div>
 </template>
 <script>
 export default {
@@ -41,14 +47,16 @@ export default {
     closeModal() {
       this.logout = false;
     },
+
+    doLogout() {
+      this.$store.dispatch("logout");
+      this.closeModal();
+      this.$router.push("/login");
+    },
   },
 };
 </script>
 <style scoped>
-.modal-dialog-centered {
-    margin-top: 15%;
-}
-
 .pink.lighten-2 {
   background-color: #f06292 !important;
   border-color: #f06292 !important;
@@ -60,6 +68,13 @@ export default {
   flex-wrap: wrap;
   color: white;
   border-radius: 0% !important;
+}
+
+.modal-dialog.modal-dialog-centered {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 35vh);
+  z-index: 333;
 }
 
 .modal-title {
