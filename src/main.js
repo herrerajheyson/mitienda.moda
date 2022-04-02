@@ -23,7 +23,7 @@ import "bootstrap/dist/css/bootstrap.css";
 
 store.subscribe((mutation) => {
   switch (mutation.type) {
-    case "auth/authentication":
+    case "auth/customer":
       if (mutation.payload) {
         axios.defaults.headers.common["Authorization"] = `${mutation.payload}`;
       } else {

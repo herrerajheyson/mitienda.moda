@@ -4,32 +4,27 @@ import { createStore } from "vuex";
 const store = createStore({
   state() {
     return {
-      authentication: null,
-      user: null,
+      customer: null,
     };
   },
 
   getters: {
     authenticated(state) {
-      if (state.authentication && state.user) {
+      if (state.customer) {
         return true;
       } else {
         return false;
       }
     },
 
-    user(state) {
-      return state.user;
+    customer(state) {
+      return state.customer;
     },
   },
 
   mutations: {
-    authentication(state, token) {
-      state.token = token;
-    },
-
-    user(state, data) {
-      state.user = data;
+    customer(state, data) {
+      state.customer = data;
     },
   },
 
@@ -40,9 +35,9 @@ const store = createStore({
      * @return  {Promise}
      */
     async login({ dispatch }, credentials) {
-      let response = await axios.post(credentials.route, credentials);
+      let response = await axios.post("login/client", credentials);
 
-      if (response.data.data.authentication) {
+      if (response.data.data.customer) {
         return dispatch("attempt", response.data.data);
       }
 
@@ -56,12 +51,11 @@ const store = createStore({
      */
     async attempt({ commit, state }, data) {
       if (data) {
-        commit("authentication", data.authentication);
-        commit("user", data.user);
+        commit("customer", data.customer);
       }
 
-      if (!state.authentication) {
-        commit("user", null);
+      if (!state.customer) {
+        commit("customer", null);
         return;
       }
     },
@@ -71,8 +65,7 @@ const store = createStore({
      */
     async logout({ commit }, route) {
       await axios.get(route).then(() => {
-        commit("authentication", null);
-        commit("user", null);
+        commit("customer", null);
       });
     },
   },
