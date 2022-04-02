@@ -9,5 +9,5 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css2?family=Archivo&family=Poppins&family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&family=sans&family=Roboto&display=swap");
 </style>

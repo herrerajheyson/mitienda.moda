@@ -5,6 +5,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import Login from "/src/components/main/Login/Login.vue";
 import NotFound from "/src/pages/general/NotFound.vue";
 import DashboardLayout from "/src/components/layout/DashboardLayout.vue";
+import Home from "/src/pages/dashboard/home/HomeRoutes";
 
 let notFoundPage = {
   path: "/:pathMatch(.*)*",
@@ -25,6 +26,9 @@ const routes = [
     name: "Home",
     beforeEnter: guards.guest,
     component: DashboardLayout,
+    children: [
+      Home
+    ]
   },
   loginPage,
   notFoundPage,

@@ -1,12 +1,10 @@
 <template>
   <div class="content">
-    <div class="container-fluid">
-      <router-view></router-view>
-    </div>
+    <router-view></router-view>
   </div>
 </template>
 <script>
 export default {
-  name: "DashboardContent"
+  name: "DashboardContent",
 };
 </script>
