@@ -16,6 +16,9 @@
           id="identification"
           :rules="rulePhone"
           @keypress="handleLogin"
+          @keydown="handleLogin"
+          @change="handleLogin"
+          @focus="handleLogin"
           name="mobilephone"
         />
         <ErrorMessage name="mobilephone"></ErrorMessage>
@@ -44,7 +47,7 @@ export default {
     handleLogin() {
       if (
         this.model.mobilephone &&
-        this.model.mobilephone.toString().length == 9
+        this.model.mobilephone.toString().length == 10
       ) {
         this.signin();
       }
@@ -54,9 +57,13 @@ export default {
       this.$store
         .dispatch("login", this.model)
         .then(() => {
-          this.$router.push("/");
+          console.log(this.$router);
+          this.$router.push("/").catch((error) => {
+            console.log(error);
+          })
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error);
           this.$swal({
             type: "error",
             html: "Ha ocurrido un error al loguearse.",

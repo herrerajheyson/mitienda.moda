@@ -26,14 +26,30 @@ import "bootstrap/dist/css/bootstrap.css";
 
 store.subscribe((mutation) => {
   switch (mutation.type) {
-    case "auth/customer":
+    case "customer":
       if (mutation.payload) {
         axios.defaults.headers.common["Authorization"] = `${mutation.payload}`;
+        localStorage.setItem("customer", JSON.stringify(mutation.payload));
       } else {
         axios.defaults.headers.common["Authorization"] = null;
+        localStorage.removeItem("customer");
+      }
+      break;
+    case "categories":
+      if (mutation.payload) {
+        localStorage.setItem("categories", JSON.stringify(mutation.payload));
+      } else {
+        localStorage.removeItem("categories");
       }
       break;
   }
 });
 
-createApp(App).use(router).use(store).use(VueSweetalert2).mount("#app");
+let data_access = {
+  customer: JSON.parse(localStorage.getItem("customer")),
+  categories: JSON.parse(localStorage.getItem("categories")),
+};
+
+store.dispatch("attempt", data_access).then(() => {
+  createApp(App).use(router).use(store).use(VueSweetalert2).mount("#app");
+});

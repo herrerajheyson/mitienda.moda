@@ -21,7 +21,7 @@ const store = createStore({
     customer(state) {
       return state.customer;
     },
-    
+
     categories(state) {
       return state.categories;
     },
@@ -31,7 +31,7 @@ const store = createStore({
     customer(state, data) {
       state.customer = data;
     },
-    
+
     categories(state, data) {
       state.categories = data;
     },
@@ -43,21 +43,23 @@ const store = createStore({
      * @param  {JSON}
      * @return  {Promise}
      */
-    async login({ dispatch }, credentials) {
+    async login({ commit, state }, credentials) {
       let response = await axios.post("login/client", credentials);
 
-      if (response.data.data.customer && response.data.data.categories) {
-        return dispatch("attempt", response.data.data);
+      if (response.data.customer && response.data.categories) {
+        commit("customer", response.data.customer);
+        commit("categories", response.data.categories);
+
+        if (!state.customer) {
+          commit("customer", null);
+          commit("categories", null);
+          return;
+        }
       }
 
       return response;
     },
 
-    /**
-     *
-     * @param  {JSON}
-     * @return  {Promise}
-     */
     async attempt({ commit, state }, data) {
       if (data) {
         commit("customer", data.customer);
@@ -74,11 +76,9 @@ const store = createStore({
     /**
      *
      */
-    async logout({ commit }, route) {
-      await axios.get(route).then(() => {
-        commit("customer", null);
-        commit("categories", null);
-      });
+    async logout({ commit }) {
+      commit("customer", null);
+      commit("categories", null);
     },
   },
 });

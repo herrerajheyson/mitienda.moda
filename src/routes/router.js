@@ -23,7 +23,7 @@ let loginPage = {
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "Tissini",
     beforeEnter: guards.guest,
     component: DashboardLayout,
     children: [

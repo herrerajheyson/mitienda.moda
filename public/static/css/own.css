@@ -14,6 +14,19 @@ body {
 .white {
   color: white !important;
 }
+
+.main-panel {
+  position: relative;
+  float: right;
+  width: calc(100% - 0px);
+  height: calc(100vh - 56px);
+}
+
+.main-panel .content {
+  padding: 30px 15px;
+  height: 100%;
+}
+
 .v-overlay--active {
   pointer-events: auto;
   -ms-touch-action: none;
