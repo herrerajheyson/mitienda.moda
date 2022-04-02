@@ -7,22 +7,85 @@
       </h3>
     </div>
     <div class="col-12 col-sm-12 col-md-5 mx-auto">
-      <form class="text-center">
-        <div>
-          <input placeholder="Teléfono" type="number" class="form-control mt-4" id="identification" />
-        </div>
-      </form>
+      <Form class="text-center" @submit="handleLogin">
+        <Field
+          v-model="model.mobilephone"
+          placeholder="Teléfono"
+          type="number"
+          class="form-control mt-4"
+          id="identification"
+          :rules="rulePhone"
+          @keypress="handleLogin"
+          name="mobilephone"
+        />
+        <ErrorMessage name="mobilephone"></ErrorMessage>
+      </Form>
     </div>
   </div>
 </template>
 <script>
+import { Form, Field, ErrorMessage } from "vee-validate";
+
 export default {
+  components: {
+    Form,
+    Field,
+    ErrorMessage,
+  },
+  data() {
+    return {
+      model: {
+        mobilephone: null,
+      },
+    };
+  },
   name: "FormLogin",
+  methods: {
+    handleLogin() {
+      if (
+        this.model.mobilephone &&
+        this.model.mobilephone.toString().length == 9
+      ) {
+        this.signin();
+      }
+    },
+
+    signin() {
+      this.$store
+        .dispatch("login", this.model)
+        .then(() => {
+          this.$router.push("/");
+        })
+        .catch(() => {
+          this.$swal({
+            type: "error",
+            html: "Ha ocurrido un error al loguearse.",
+            confirmButtonClass: "btn btn-danger btn-fill",
+            buttonsStyling: false,
+          });
+        });
+    },
+
+    rulePhone(value) {
+      if (!value) {
+        return "El campo número de teléfono";
+      }
+
+      if (value.toString().length > 10) {
+        return "El campo número de teléfono no puede tener más de 10 dígitos";
+      }
+      return true;
+    },
+  },
 };
 </script>
 <style scoped>
 .logo {
   width: 60%;
+}
+
+span[role="alert"] {
+  color: white;
 }
 
 input,
@@ -34,7 +97,7 @@ input,
   font-size: 22px;
 }
 
-input::placeholder  {
+input::placeholder {
   color: white;
   font-size: 16px;
 }
