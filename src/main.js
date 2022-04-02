@@ -4,6 +4,9 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import axios from "axios";
 
+import VueSweetalert2 from "vue-sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+
 axios.defaults.baseURL = "https://v3.tissini.app/api/v3/";
 axios.defaults.headers.post["Content-Type"] =
   "application/x-www-form-urlencoded; charset=UTF-8";
@@ -33,4 +36,4 @@ store.subscribe((mutation) => {
   }
 });
 
-createApp(App).use(router).use(store).mount("#app");
+createApp(App).use(router).use(store).use(VueSweetalert2).mount("#app");
