@@ -1,10 +1,12 @@
-import {store} from "@/store/auth"
+import { store } from "@/store/auth";
+
 import { createApp } from "vue";
 import App from "./App.vue";
 import axios from "axios";
 
 axios.defaults.baseURL = "https://v3.tissini.app/api/v3/";
-axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
+axios.defaults.headers.post["Content-Type"] =
+  "application/x-www-form-urlencoded; charset=UTF-8";
 
 import router from "./routes/router";
 
@@ -17,6 +19,18 @@ configure({
   validateOnModelUpdate: true,
 });
 
-import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap/dist/css/bootstrap.css";
 
-createApp(App).use(router).use(store).mount('#app')
+store.subscribe((mutation) => {
+  switch (mutation.type) {
+    case "auth/authentication":
+      if (mutation.payload) {
+        axios.defaults.headers.common["Authorization"] = `${mutation.payload}`;
+      } else {
+        axios.defaults.headers.common["Authorization"] = null;
+      }
+      break;
+  }
+});
+
+createApp(App).use(router).use(store).mount("#app");
